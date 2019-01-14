@@ -21,37 +21,19 @@ param['G_0'] - 0.1
 # reduced form params
 Omega = 1.0 - ((param['lambda'] - 1.0)/param['lambda']) * (1.0 - param['alpha'])
 
-# System of equations
-def eq1():
-    return k*q + c + param['G_0'] - Omega * y - (1.0 - param['delta']) * k
-
-def eq2():
-    return c * q - (param['beta'] * c * (1.0 + (1.0 - tau_k) * param['alpha'] * y/k - param['delta']))
-
-def eq3():
-    return param['phi'] * c * (lab**(1.0 + param['eta'])) - ((1.0 - tau_l)* ((1.0 - param['alpha'])/param['lambda']) * y)
-
-def eq4():
-    return y - k ** param['alpha'] * lab ** (1.0 - param['alpha'])
-
-def eq5():
-    return param['G_0'] - ( ((1.0 - param['alpha'])/param['lambda']) * tau_l + param['alpha'] * tau_k ) * y
-
-def eq6():
-    q - ( 1.0 + ((param['lambda'] - 1.0)/param['lambda']) * ((1 - param['alpha'])/param['psi'])* y )
-
 
 def steadyS(vars):
+    vars = np.zeros(6)
+
     k = vars[0]
     q = vars[1]
     c = vars[2]
-    y = vars[3]
-    tau_k = vars[4]
-    l = vars[5]
-    tau_l = vars[6]
+    tau_k = vars[3]
+    l = vars[4]
+    tau_l = vars[5]
 
     f = np.zeros(6)
-
+    y = k ** param['alpha'] * L ** (1 - param['alpha'])
     f[0] = k*q + c + param['G_0'] - Omega * y - (1.0 - param['delta']) * k
     f[1] = c * q - (param['beta'] * c * (1.0 + (1.0 - tau_k) * param['alpha'] * y/k - param['delta']))
     f[2] = param['phi'] * c * (lab**(1.0 + param['eta'])) - ((1.0 - tau_l)* ((1.0 - param['alpha'])/param['lambda']) * y)
