@@ -21,6 +21,7 @@ function f = steadys(vars0);
     A = vars0(6);
     vpi = vars0(7);
     g = vars0(8);
+    y = vars0(9);
 
     f = zeros(1, 8);
 
@@ -33,4 +34,5 @@ function f = steadys(vars0);
     f(6) = w - (1 - calpha) * l^(-calpha) * k;
     f(7) = y - k - c;
     f(8) = k - (1 - cdelta) * k;
+    f(9) = y - A * l^(1 - calpha) * k ^ calpha
 end

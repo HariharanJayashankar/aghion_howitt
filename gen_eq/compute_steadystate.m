@@ -1,5 +1,5 @@
 % inital val guess
-vars0 = ones(1, 8);
+vars0 = ones(1, 9);
 
 % parameters
 cbeta = 0.96;
