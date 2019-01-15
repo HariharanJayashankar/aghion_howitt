@@ -4,35 +4,28 @@ function f = steadys(vars0);
     %parameters
     cbeta = params(1);
     cdelta = params(2);
-    cpsi= params(3);
-    cv = params(4);
-    cphi = params(5);
-    cgamma = params(6);
-    clambda = params(7);
-    csigma = params(8);
-    calpha = params(9);
+    cphi = params(3);
+    cgamma = params(4);
+    clambda = params(5);
+    csigma = params(6);
+    calpha = params(7);
+    etau = params(8);
 
     %guesses for initial values
     c = vars0(1);
-    l = vars0(2);
-    k = vars0(3);
-    w = vars0(4);
-    r = vars0(5);
-    A = vars0(6);
-    vpi = vars0(7);
-    g = vars0(8);
-    y = vars0(9);
+    k = vars0(2);
+    r = vars0(3);
+    vpi = vars0(4);
+    g = vars0(5);
+    y = vars0(6);
 
-    f = zeros(1, 8);
+    f = zeros(1, 6);
 
     %functions to minimize to find steady states
-    f(1) = cbeta * (1 + r  - cdelta) - 1;
-    f(2) = l^cv - w * c^(-cphi)/cpsi;
-    f(3) = g - (cgamma - 1) * clambda * (clambda * csigma * vpi)^(csigma/(1 - csigma));
-    f(4) = A - (1+g)* A;
-    f(5) = k - (calpha^2/r)^(1/(1 - calpha)) * l * A;
-    f(6) = w - (1 - calpha) * l^(-calpha) * k;
-    f(7) = y - k - c;
-    f(8) = k - (1 - cdelta) * k;
-    f(9) = y - A * l^(1 - calpha) * k ^ calpha
+    f(1) = cbeta * (1 + r*(1 - etau)  - cdelta)*(1+g)^(-cphi) - 1;
+    f(2) = g - (cgamma - 1) * clambda * (clambda * csigma * vpi)^(csigma/(1 - csigma));
+    f(3) = y - k^calpha;
+    f(4) = k - (calpha/r)^(1/(1 - calpha));
+    f(5) = vpi - calpha * (1 - calpha) * k^calpha;
+    f(6) = y - c + k - k/(1+g);
 end
