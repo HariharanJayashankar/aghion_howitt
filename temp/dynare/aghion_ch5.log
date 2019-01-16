@@ -10,7 +10,6 @@ Processing outputs ...
 done
 Preprocessing completed.
 
-
 STEADY-STATE RESULTS:
 
 k     		 5.56591
@@ -31,4 +30,4 @@ Equation number 4 : 0
 
 Perfect foresight solution found.
 
-Total computing time : 0h00m04s
+Total computing time : 0h00m01s

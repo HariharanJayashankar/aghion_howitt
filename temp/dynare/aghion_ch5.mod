@@ -1,5 +1,4 @@
 // declare endogenous variables
-
 var k g vpi log_k;
 
 predetermined_variables k;

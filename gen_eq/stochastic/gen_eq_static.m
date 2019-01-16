@@ -25,57 +25,53 @@ function [residual, g1, g2, g3] = gen_eq_static(y, x, params)
 % Warning : this file is generated automatically by Dynare
 %           from model file (.mod)
 
-residual = zeros( 6, 1);
+residual = zeros( 5, 1);
 
 %
 % Model equations
 %
 
-T24 = (y(1)*(1+y(6))/y(1))^(-params(3));
-T43 = y(3)^params(7);
-lhs =params(1)*(1+y(4)*(1-x(1))-params(2))*T24;
-rhs =1;
+T35 = params(3)^2;
+T38 = y(3)^params(3);
+lhs =1/y(1)*params(1)*(1+y(5)*(1-x(1))-params(2));
+rhs =(1+y(4))/y(1);
 residual(1)= lhs-rhs;
-lhs =y(6);
-rhs =(params(4)-1)*params(5)*(params(5)*params(6)*y(5))^(params(6)/(1-params(6)));
+lhs =y(2);
+rhs =y(1)+(1+y(4))*y(3)-y(3)*(1-params(2));
 residual(2)= lhs-rhs;
-lhs =y(2);
-rhs =T43;
-residual(3)= lhs-rhs;
-lhs =y(3);
-rhs =(params(7)/y(4))^(1/(1-params(7)));
-residual(4)= lhs-rhs;
 lhs =y(5);
-rhs =T43*params(7)*(1-params(7));
-residual(5)= lhs-rhs;
+rhs =y(3)^(params(3)-1)*T35;
+residual(3)= lhs-rhs;
 lhs =y(2);
-rhs =y(1)+y(3)-y(3)/(1+y(6));
-residual(6)= lhs-rhs;
+rhs =T38;
+residual(4)= lhs-rhs;
+lhs =y(4);
+rhs =(params(4)-1)*params(5)*(T38*(params(3)-1)*params(5)*params(6))^(params(6)/(1-params(6)));
+residual(5)= lhs-rhs;
 if ~isreal(residual)
   residual = real(residual)+imag(residual).^2;
 end
 if nargout >= 2,
-  g1 = zeros(6, 6);
+  g1 = zeros(5, 5);
 
   %
   % Jacobian matrix
   %
 
-T58 = getPowerDeriv(y(3),params(7),1);
-  g1(1,4)=T24*params(1)*(1-x(1));
-  g1(1,6)=params(1)*(1+y(4)*(1-x(1))-params(2))*getPowerDeriv(y(1)*(1+y(6))/y(1),(-params(3)),1);
-  g1(2,5)=(-((params(4)-1)*params(5)*params(5)*params(6)*getPowerDeriv(params(5)*params(6)*y(5),params(6)/(1-params(6)),1)));
-  g1(2,6)=1;
-  g1(3,2)=1;
-  g1(3,3)=(-T58);
-  g1(4,3)=1;
-  g1(4,4)=(-((-params(7))/(y(4)*y(4))*getPowerDeriv(params(7)/y(4),1/(1-params(7)),1)));
-  g1(5,3)=(-(params(7)*(1-params(7))*T58));
-  g1(5,5)=1;
-  g1(6,1)=(-1);
-  g1(6,2)=1;
-  g1(6,3)=(-(1-1/(1+y(6))));
-  g1(6,6)=(-y(3))/((1+y(6))*(1+y(6)));
+T65 = getPowerDeriv(y(3),params(3),1);
+  g1(1,1)=(1+y(5)*(1-x(1))-params(2))*params(1)*(-1)/(y(1)*y(1))-(-(1+y(4)))/(y(1)*y(1));
+  g1(1,4)=(-(1/y(1)));
+  g1(1,5)=1/y(1)*params(1)*(1-x(1));
+  g1(2,1)=(-1);
+  g1(2,2)=1;
+  g1(2,3)=(-(1+y(4)-(1-params(2))));
+  g1(2,4)=(-y(3));
+  g1(3,3)=(-(T35*getPowerDeriv(y(3),params(3)-1,1)));
+  g1(3,5)=1;
+  g1(4,2)=1;
+  g1(4,3)=(-T65);
+  g1(5,3)=(-((params(4)-1)*params(5)*(params(3)-1)*params(5)*params(6)*T65*getPowerDeriv(T38*(params(3)-1)*params(5)*params(6),params(6)/(1-params(6)),1)));
+  g1(5,4)=1;
   if ~isreal(g1)
     g1 = real(g1)+2*imag(g1);
   end
@@ -84,13 +80,13 @@ if nargout >= 3,
   % Hessian matrix
   %
 
-  g2 = sparse([],[],[],6,36);
+  g2 = sparse([],[],[],5,25);
 if nargout >= 4,
   %
   % Third order derivatives
   %
 
-  g3 = sparse([],[],[],6,216);
+  g3 = sparse([],[],[],5,125);
 end
 end
 end
