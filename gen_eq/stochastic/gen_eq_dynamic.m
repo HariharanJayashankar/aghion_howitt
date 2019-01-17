@@ -33,61 +33,90 @@ function [residual, g1, g2, g3] = gen_eq_dynamic(y, x, params, steady_state, it_
 % Model equations
 %
 
-residual = zeros(5, 1);
-T38 = params(3)^2;
-T41 = y(1)^params(3);
-lhs =1/y(7)*params(1)*(1+y(9)*(1-x(it_, 1))-params(2));
-rhs =(1+y(8))/y(2);
+residual = zeros(10, 1);
+T40 = params(3)^2;
+T43 = y(1)^params(3);
+lhs =1/y(16)*params(1)*(1+y(18)*(1-y(11))-params(2));
+rhs =(1+y(17))/y(6);
 residual(1)= lhs-rhs;
-lhs =y(3);
-rhs =y(2)+(1+y(8))*y(4)-y(1)*(1-params(2));
+lhs =y(7);
+rhs =y(6)+(1+y(17))*y(8)-y(1)*(1-params(2))+y(12);
 residual(2)= lhs-rhs;
-lhs =y(6);
-rhs =y(1)^(params(3)-1)*T38;
+lhs =y(10);
+rhs =y(1)^(params(3)-1)*T40;
 residual(3)= lhs-rhs;
-lhs =y(3);
-rhs =T41;
+lhs =y(7);
+rhs =T43;
 residual(4)= lhs-rhs;
-lhs =y(5);
-rhs =(params(4)-1)*params(5)*(T41*(params(3)-1)*params(5)*params(6))^(params(6)/(1-params(6)));
+lhs =y(9);
+rhs =(params(4)-1)*params(5)*(T43*(params(3)-1)*params(5)*params(6))^(params(6)/(1-params(6)));
 residual(5)= lhs-rhs;
+lhs =y(12);
+rhs =y(1)*y(11)*y(10);
+residual(6)= lhs-rhs;
+lhs =y(11);
+rhs =params(7)*y(2)+y(5);
+residual(7)= lhs-rhs;
+lhs =y(13);
+rhs =x(it_, 1);
+residual(8)= lhs-rhs;
+lhs =y(14);
+rhs =y(3);
+residual(9)= lhs-rhs;
+lhs =y(15);
+rhs =y(4);
+residual(10)= lhs-rhs;
 if nargout >= 2,
-  g1 = zeros(5, 10);
+  g1 = zeros(10, 19);
 
   %
   % Jacobian matrix
   %
 
-T69 = getPowerDeriv(y(1),params(3),1);
-  g1(1,2)=(-((-(1+y(8)))/(y(2)*y(2))));
-  g1(1,7)=(1+y(9)*(1-x(it_, 1))-params(2))*params(1)*(-1)/(y(7)*y(7));
-  g1(1,8)=(-(1/y(2)));
-  g1(1,9)=1/y(7)*params(1)*(1-x(it_, 1));
-  g1(1,10)=1/y(7)*params(1)*(-y(9));
-  g1(2,2)=(-1);
-  g1(2,3)=1;
+T96 = getPowerDeriv(y(1),params(3),1);
+  g1(1,6)=(-((-(1+y(17)))/(y(6)*y(6))));
+  g1(1,16)=(1+y(18)*(1-y(11))-params(2))*params(1)*(-1)/(y(16)*y(16));
+  g1(1,17)=(-(1/y(6)));
+  g1(1,18)=1/y(16)*params(1)*(1-y(11));
+  g1(1,11)=1/y(16)*params(1)*(-y(18));
+  g1(2,6)=(-1);
+  g1(2,7)=1;
   g1(2,1)=1-params(2);
-  g1(2,4)=(-(1+y(8)));
-  g1(2,8)=(-y(4));
-  g1(3,1)=(-(T38*getPowerDeriv(y(1),params(3)-1,1)));
-  g1(3,6)=1;
-  g1(4,3)=1;
-  g1(4,1)=(-T69);
-  g1(5,1)=(-((params(4)-1)*params(5)*(params(3)-1)*params(5)*params(6)*T69*getPowerDeriv(T41*(params(3)-1)*params(5)*params(6),params(6)/(1-params(6)),1)));
-  g1(5,5)=1;
+  g1(2,8)=(-(1+y(17)));
+  g1(2,17)=(-y(8));
+  g1(2,12)=(-1);
+  g1(3,1)=(-(T40*getPowerDeriv(y(1),params(3)-1,1)));
+  g1(3,10)=1;
+  g1(4,7)=1;
+  g1(4,1)=(-T96);
+  g1(5,1)=(-((params(4)-1)*params(5)*(params(3)-1)*params(5)*params(6)*T96*getPowerDeriv(T43*(params(3)-1)*params(5)*params(6),params(6)/(1-params(6)),1)));
+  g1(5,9)=1;
+  g1(6,1)=(-(y(11)*y(10)));
+  g1(6,10)=(-(y(11)*y(1)));
+  g1(6,11)=(-(y(1)*y(10)));
+  g1(6,12)=1;
+  g1(7,2)=(-params(7));
+  g1(7,11)=1;
+  g1(7,5)=(-1);
+  g1(8,19)=(-1);
+  g1(8,13)=1;
+  g1(9,3)=(-1);
+  g1(9,14)=1;
+  g1(10,4)=(-1);
+  g1(10,15)=1;
 
 if nargout >= 3,
   %
   % Hessian matrix
   %
 
-  g2 = sparse([],[],[],5,100);
+  g2 = sparse([],[],[],10,361);
 if nargout >= 4,
   %
   % Third order derivatives
   %
 
-  g3 = sparse([],[],[],5,1000);
+  g3 = sparse([],[],[],10,6859);
 end
 end
 end

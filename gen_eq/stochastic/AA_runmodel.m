@@ -1,18 +1,26 @@
 %{
 script to run th whole scirpt and save plots
 %}
+clear; clc;
 
 compute_steadystate;
 dynare gen_eq.mod;
 
-
 % plotting relevant endogenous variables
+fields = fieldnames(oo_.irfs);
+figure1 = figure;
+for i=1:numel(fields)
+  if mod(numel(fields),2) == 2
+    a = 2;
+    b = numel(fields)/2;
+  else
+    a = 2;
+    b = (numel(fields)+1)/2;
+  end
+  subplot(a, b, i); plot(oo_.irfs.(fields{i})); title(M_.endo_names_long(i,:));
+end
 
-subplot(2, 3, 1); plot(oo_.irfs.y_etau); title('Y/A');
-subplot(2, 3, 2); plot(oo_.irfs.c_etau); title('C/A');
-subplot(2, 3, 3); plot(oo_.irfs.r_etau); title('Rate of Return on Capital');
-subplot(2, 3, 4); plot(oo_.irfs.k_etau); title('K/A');
-subplot(2, 3, 5); plot(oo_.irfs.g_etau); title('Growth Rate');
-subtitle('Impulse Response Functions')
+subtitle('Impulse Response Functions');
 
-print('irfs', '-dpng')
+set(figure1,'PaperUnits','inches','PaperPosition',[0 0 10 6]);
+saveas(figure1,'irfs.png');

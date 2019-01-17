@@ -1,11 +1,7 @@
 // vars
-var c ${c}$ (long_name='C/A')
-  y ${y}$ (long_name='Y/A')
-  k ${k}$ (long_name='K/A')
-  g ${g}$ (long_name='Growth Rate')
-  r ${r}$ (long_name='Rate of Return on K');
+var c y r f etau_k G_0;
 
-varexo etau_k cepsilon;
+varexo cepsilon;
 
 // parameters
 parameters cbeta cdelta calpha cgamma clambda csigma ctheta;
@@ -38,6 +34,9 @@ y = k(-1)^calpha;
 
 // growth rate
 g = (cgamma - 1) * clambda * (csigma*clambda*(calpha - 1) * (k(-1))^calpha)^(csigma/(1-csigma));
+
+// government constraint
+G_0 = etau_k * r * k(-1);
 
 // tax process
 etau_k = ctheta * etau_k(-1) + cepsilon(-3);

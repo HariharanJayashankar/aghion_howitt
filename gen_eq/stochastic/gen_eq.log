@@ -1,6 +1,7 @@
 Starting Dynare (version 4.5.6).
 Starting preprocessing of the model file ...
-Found 5 equation(s).
+Substitution of exo lags: added 3 auxiliary variables and equations.
+Found 10 equation(s).
 Evaluating expressions...done
 Computing static model derivatives:
  - order 1
@@ -12,11 +13,13 @@ Preprocessing completed.
 
 STEADY-STATE RESULTS:
 
-c 		 0.785139
-y 		 0.852054
-k 		 0.615594
-g 		 0.00870076
-r 		 0.15073
+c               		 0.785139
+y               		 0.852055
+k               		 0.615596
+g               		 0.00870081
+r               		 0.15073
+etau_k          		 1.06581e-014
+G_0             		 8.88178e-016
 
 
 
@@ -24,58 +27,70 @@ r 		 0.15073
 Residuals of the static equations:
 
 Equation number 1 : 0
-Equation number 2 : 1.4788e-007
-Equation number 3 : -3.8345e-007
-Equation number 4 : 4.5397e-007
+Equation number 2 : 0
+Equation number 3 : 0
+Equation number 4 : 0
 Equation number 5 : 0
+Equation number 6 : 0
+Equation number 7 : 0
 
 
 
 MODEL SUMMARY
 
-  Number of variables:         5
+  Number of variables:         10
   Number of stochastic shocks: 1
-  Number of state variables:   1
+  Number of state variables:   5
   Number of jumpers:           3
-  Number of static variables:  1
+  Number of static variables:  2
 
 
 MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
-Variables        etau
-etau         0.640000
+Variables    cepsilon
+cepsilon     0.640000
 
 POLICY AND TRANSITION FUNCTIONS
-                                   c               y               k               g               r
-Constant                    0.785139        0.852054        0.615594        0.008701        0.150730
-k(-1)                       0.542415        0.456759        0.798231        0.018657       -0.164052
-etau                        0.067602               0       -0.066264               0               0
+                                   c               y               k               g               r          etau_k             G_0
+Constant                    0.785139        0.852055        0.615596        0.008701        0.150730               0               0
+k(-1)                       0.542414        0.456758        0.798231        0.018657       -0.164051               0               0
+etau_k(-1)                  0.059712               0       -0.140388               0               0        0.900000        0.083510
+cepsilon(-1)                0.023902               0       -0.023429               0               0               0               0
+cepsilon(-2)                0.039822               0       -0.039034               0               0               0               0
+cepsilon(-3)                0.066346               0       -0.155986               0               0        1.000000        0.092789
+cepsilon                    0.014346               0       -0.014062               0               0               0               0
 
 
 THEORETICAL MOMENTS
 VARIABLE         MEAN  STD. DEV.   VARIANCE
-c              0.7851     0.0721     0.0052
-y              0.8521     0.0402     0.0016
-k              0.6156     0.0880     0.0077
-g              0.0087     0.0016     0.0000
-r              0.1507     0.0144     0.0002
+c              0.7851     0.5676     0.3221
+y              0.8521     0.5578     0.3111
+k              0.6156     1.2212     1.4913
+g              0.0087     0.0228     0.0005
+r              0.1507     0.2003     0.0401
+etau_k         0.0000     1.8353     3.3684
+G_0            0.0000     0.1703     0.0290
 
 
 
 MATRIX OF CORRELATIONS
-Variables         c       y       k       g       r
-c            1.0000  0.6618  0.0766  0.6618 -0.6618
-y            0.6618  1.0000  0.7982  1.0000 -1.0000
-k            0.0766  0.7982  1.0000  0.7982 -0.7982
-g            0.6618  1.0000  0.7982  1.0000 -1.0000
-r           -0.6618 -1.0000 -0.7982 -1.0000  1.0000
+Variables         c       y       k       g       r  etau_k     G_0
+c            1.0000  0.9902  0.9623  0.9902 -0.9902 -0.7389 -0.7389
+y            0.9902  1.0000  0.9905  1.0000 -1.0000 -0.8169 -0.8169
+k            0.9623  0.9905  1.0000  0.9905 -0.9905 -0.8865 -0.8865
+g            0.9902  1.0000  0.9905  1.0000 -1.0000 -0.8169 -0.8169
+r           -0.9902 -1.0000 -0.9905 -1.0000  1.0000  0.8169  0.8169
+etau_k      -0.7389 -0.8169 -0.8865 -0.8169  0.8169  1.0000  1.0000
+G_0         -0.7389 -0.8169 -0.8865 -0.8169  0.8169  1.0000  1.0000
 
 
 
 COEFFICIENTS OF AUTOCORRELATION
-Order         1       2       3       4       5
-c        0.0507  0.0405  0.0323  0.0258  0.0206
-y        0.7982  0.6372  0.5086  0.4060  0.3241
-k        0.7982  0.6372  0.5086  0.4060  0.3241
-g        0.7982  0.6372  0.5086  0.4060  0.3241
-r        0.7982  0.6372  0.5086  0.4060  0.3241
+Order          1       2       3       4       5
+c         0.9852  0.9513  0.9049  0.8508  0.7948
+y         0.9905  0.9655  0.9289  0.8838  0.8336
+k         0.9905  0.9655  0.9289  0.8838  0.8336
+g         0.9905  0.9655  0.9289  0.8838  0.8336
+r         0.9905  0.9655  0.9289  0.8838  0.8336
+etau_k    0.9000  0.8100  0.7290  0.6561  0.5905
+G_0       0.9000  0.8100  0.7290  0.6561  0.5905
 Total computing time : 0h00m00s

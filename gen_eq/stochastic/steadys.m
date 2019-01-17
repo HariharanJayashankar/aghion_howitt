@@ -8,6 +8,8 @@ function f = steadys(vars0);
     cgamma = params(4);
     clambda= params(5);
     csigma = params(6);
+    ctheta = params(7);
+    G_0 = params(8);
 
     %guesses for initial values
     c = vars0(1);
@@ -15,8 +17,9 @@ function f = steadys(vars0);
     k = vars0(3);
     g = vars0(4);
     r = vars0(5);
+    etau = vars0(6);
 
-    f = zeros(1, 5);
+    f = zeros(1, length(vars0));
 
     %% functions to minimize to find steady states
     % HH Euler
@@ -33,4 +36,7 @@ function f = steadys(vars0);
 
     % growth rate
     f(5) = g - (cgamma - 1) * clambda * (csigma*clambda*(calpha - 1) * k^calpha)^(csigma/(1-csigma));
+
+    % government constraint
+    f(6) = G_0 - etau * r * k;
 end
