@@ -1,0 +1,60 @@
+Starting Dynare (version 4.5.6).
+Starting preprocessing of the model file ...
+Found 5 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+MODEL SUMMARY
+
+  Number of variables:         5
+  Number of stochastic shocks: 1
+  Number of state variables:   1
+  Number of jumpers:           3
+  Number of static variables:  1
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables      etau_k
+etau_k       0.640000
+
+POLICY AND TRANSITION FUNCTIONS
+                                   r               g               k               y               c
+Constant                    0.158209        0.007909        0.572658        0.825441        0.764131
+k(-1)                      -0.185105        0.018230        0.778264        0.460737        0.566162
+etau_k                             0               0       -0.066133               0        0.066133
+
+
+THEORETICAL MOMENTS
+VARIABLE         MEAN  STD. DEV.   VARIANCE
+r              0.1582     0.0156     0.0002
+g              0.0079     0.0015     0.0000
+k              0.5727     0.0843     0.0071
+y              0.8254     0.0388     0.0015
+c              0.7641     0.0712     0.0051
+
+
+
+MATRIX OF CORRELATIONS
+Variables         r       g       k       y       c
+r            1.0000 -1.0000 -0.7783 -1.0000 -0.6696
+g           -1.0000  1.0000  0.7783  1.0000  0.6696
+k           -0.7783  0.7783  1.0000  0.7783  0.0548
+y           -1.0000  1.0000  0.7783  1.0000  0.6696
+c           -0.6696  0.6696  0.0548  0.6696  1.0000
+
+
+
+COEFFICIENTS OF AUTOCORRELATION
+Order         1       2       3       4       5
+r        0.7783  0.6057  0.4714  0.3669  0.2855
+g        0.7783  0.6057  0.4714  0.3669  0.2855
+k        0.7783  0.6057  0.4714  0.3669  0.2855
+y        0.7783  0.6057  0.4714  0.3669  0.2855
+c        0.0367  0.0286  0.0222  0.0173  0.0135
+Total computing time : 0h00m02s

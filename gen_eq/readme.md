@@ -1,1 +1,5 @@
-Only the stochastic model is used for now.
+The detrended model should be used.
+
+The stochastic model also works.
+
+Deterministic model is throwing errors (c possibly is exploding)

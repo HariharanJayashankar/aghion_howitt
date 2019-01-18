@@ -1,4 +1,4 @@
-function y = gen_eq_set_auxiliary_variables(y, x, params)
+function y = detrended_model_set_auxiliary_variables(y, x, params)
 %
 % Status : Computes static model for Dynare
 %

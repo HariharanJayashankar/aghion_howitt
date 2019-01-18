@@ -1,4 +1,4 @@
-function [residual, g1, g2, g3] = gen_eq_dynamic(y, x, params, steady_state, it_)
+function [residual, g1, g2, g3] = detrended_model_dynamic(y, x, params, steady_state, it_)
 %
 % Status : Computes dynamic model for Dynare
 %
@@ -34,22 +34,27 @@ function [residual, g1, g2, g3] = gen_eq_dynamic(y, x, params, steady_state, it_
 %
 
 residual = zeros(5, 1);
-T38 = params(3)^2;
-T41 = y(1)^params(3);
-lhs =1/y(7)*params(1)*(1+y(9)*(1-x(it_, 1))-params(2));
-rhs =(1+y(8))/y(2);
+T42 = params(3)^2;
+T140 = params(1)*1/(y(9)*(1+y(8)));
+T143 = 1/(1+y(3));
+T148 = y(1)*T143/T143;
+T152 = T143^(1-params(3));
+T153 = (y(1)*T143)^params(3);
+T157 = (params(3)-1)*params(5)*params(6)*T148^params(3);
+lhs =(1+y(7)*(1-x(it_, 1))-params(2))*T140;
+rhs =(1+y(8))/y(6);
 residual(1)= lhs-rhs;
-lhs =y(3);
-rhs =y(2)+(1+y(8))*y(4)-y(1)*(1-params(2));
-residual(2)= lhs-rhs;
-lhs =y(6);
-rhs =y(1)^(params(3)-1)*T38;
-residual(3)= lhs-rhs;
-lhs =y(3);
-rhs =T41;
-residual(4)= lhs-rhs;
 lhs =y(5);
-rhs =(params(4)-1)*params(5)*(T41*(params(3)-1)*params(5)*params(6))^(params(6)/(1-params(6)));
+rhs =y(6)+y(4)-(1-params(2))*y(1)*T143;
+residual(2)= lhs-rhs;
+lhs =y(2);
+rhs =T42*T148^(params(3)-1);
+residual(3)= lhs-rhs;
+lhs =y(5);
+rhs =T152*T153;
+residual(4)= lhs-rhs;
+lhs =y(3);
+rhs =(params(4)-1)*params(5)*T157^(params(6)/(1-params(6)));
 residual(5)= lhs-rhs;
 if nargout >= 2,
   g1 = zeros(5, 10);
@@ -58,23 +63,29 @@ if nargout >= 2,
   % Jacobian matrix
   %
 
-T69 = getPowerDeriv(y(1),params(3),1);
-  g1(1,2)=(-((-(1+y(8)))/(y(2)*y(2))));
-  g1(1,7)=(1+y(9)*(1-x(it_, 1))-params(2))*params(1)*(-1)/(y(7)*y(7));
-  g1(1,8)=(-(1/y(2)));
-  g1(1,9)=1/y(7)*params(1)*(1-x(it_, 1));
-  g1(1,10)=1/y(7)*params(1)*(-y(9));
-  g1(2,2)=(-1);
-  g1(2,3)=1;
-  g1(2,1)=1-params(2);
-  g1(2,4)=(-(1+y(8)));
-  g1(2,8)=(-y(4));
-  g1(3,1)=(-(T38*getPowerDeriv(y(1),params(3)-1,1)));
-  g1(3,6)=1;
-  g1(4,3)=1;
-  g1(4,1)=(-T69);
-  g1(5,1)=(-((params(4)-1)*params(5)*(params(3)-1)*params(5)*params(6)*T69*getPowerDeriv(T41*(params(3)-1)*params(5)*params(6),params(6)/(1-params(6)),1)));
-  g1(5,5)=1;
+T163 = (-1)/((1+y(3))*(1+y(3)));
+T172 = getPowerDeriv(T148,params(3)-1,1);
+T178 = getPowerDeriv(y(1)*T143,params(3),1);
+T184 = getPowerDeriv(T148,params(3),1);
+T187 = getPowerDeriv(T157,params(6)/(1-params(6)),1);
+  g1(1,7)=(1-x(it_, 1))*T140;
+  g1(1,8)=(1+y(7)*(1-x(it_, 1))-params(2))*params(1)*(-y(9))/(y(9)*(1+y(8))*y(9)*(1+y(8)))-1/y(6);
+  g1(1,6)=(-((-(1+y(8)))/(y(6)*y(6))));
+  g1(1,9)=(1+y(7)*(1-x(it_, 1))-params(2))*params(1)*(-(1+y(8)))/(y(9)*(1+y(8))*y(9)*(1+y(8)));
+  g1(1,10)=T140*(-y(7));
+  g1(2,3)=(1-params(2))*y(1)*T163;
+  g1(2,1)=(1-params(2))*T143;
+  g1(2,4)=(-1);
+  g1(2,5)=1;
+  g1(2,6)=(-1);
+  g1(3,2)=1;
+  g1(3,3)=(-(T42*(T143*y(1)*T163-y(1)*T143*T163)/(T143*T143)*T172));
+  g1(3,1)=(-(T42*T172));
+  g1(4,3)=(-(T153*T163*getPowerDeriv(T143,1-params(3),1)+T152*y(1)*T163*T178));
+  g1(4,1)=(-(T152*T143*T178));
+  g1(4,5)=1;
+  g1(5,3)=1-(params(4)-1)*params(5)*(params(3)-1)*params(5)*params(6)*(T143*y(1)*T163-y(1)*T143*T163)/(T143*T143)*T184*T187;
+  g1(5,1)=(-((params(4)-1)*params(5)*T187*(params(3)-1)*params(5)*params(6)*T184));
 
 if nargout >= 3,
   %

@@ -1,6 +1,3 @@
-% inital val guess
-vars0 = [1, 1, 1, 1, 1];
-
 % parameters
 cbeta = 0.96;
 cdelta = 0.1;
@@ -17,9 +14,3 @@ params = [cbeta cdelta calpha cgamma clambda csigma ctheta];
 policy = [etau_k];
 
 save('params.mat', 'params', 'policy');
-
-f = @steadys;
-[xinit, fval, exitflag] = fsolve(f, vars0);
-
-xinit = real(xinit);
-save('xinit.mat', 'xinit');

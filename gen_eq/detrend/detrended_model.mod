@@ -1,5 +1,7 @@
 // vars
-var c y k g r;
+var r g;
+trend_var(growth_factor=1+g) A;
+var(deflator=A) k y c;
 
 varexo etau_k;
 
@@ -24,20 +26,18 @@ model;
 (1/c(+1))*cbeta*(r(+1)*(1-etau_k) + 1 - cdelta) = (1+g(+1))/c;
 
 // Goods market clearing
-y = c + k*(1 + g(+1)) - k(-1)*(1 - cdelta);
+y = c + k- k(-1)*(1 - cdelta);
 
 // Capital Market clearing
-r = (k(-1))^(calpha-1)*calpha^2;
+r = (k(-1)/A(-1))^(calpha-1)*calpha^2;
 
 // production function for final good
-y = k(-1)^calpha;
+y = A(-1)^(1 - calpha) * k(-1)^calpha;
 
 // growth rate
-g = (cgamma - 1) * clambda * (csigma*clambda*(calpha - 1) * (k(-1))^calpha)^(csigma/(1-csigma));
-
+g = (cgamma - 1) * clambda * (csigma*clambda*(calpha - 1) * (k(-1)/A(-1))^calpha)^(csigma/(1-csigma));
 end;
 
-// init values
 initval;
 c = xinit(1);
 y = xinit(2);
@@ -46,8 +46,6 @@ g = xinit(4);
 r = xinit(5);
 etau_k = policy(1);
 end;
-steady;
-resid;
 
 
 // Sets shocks
@@ -58,4 +56,4 @@ end;
 
 
 // solve
-stoch_simul(order=1, nograph);
+stoch_simul(order=1);
