@@ -56,4 +56,4 @@ end;
 
 
 // solve
-stoch_simul(order=1);
+stoch_simul(order=1, nograph);

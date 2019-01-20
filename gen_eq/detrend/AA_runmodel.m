@@ -1,5 +1,5 @@
-% https://savannah.gnu.org/bugs/?53211 -> this fixes octave's detrned function
 
+clear; clc;
 parameter_setting
 compute_steadystate
 dynare detrended_model.mod
@@ -23,3 +23,8 @@ subtitle('Impulse Response Functions');
 
 set(figure1,'PaperUnits','inches','PaperPosition',[0 0 10 6]);
 saveas(figure1,'irfs.png');
+
+
+%% Toying around
+
+% generating IRFS by hand from policy function

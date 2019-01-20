@@ -64,14 +64,11 @@ M_.param_names_long = char(M_.param_names_long, 'clambda');
 M_.param_names = char(M_.param_names, 'csigma');
 M_.param_names_tex = char(M_.param_names_tex, 'csigma');
 M_.param_names_long = char(M_.param_names_long, 'csigma');
-M_.param_names = char(M_.param_names, 'ctheta');
-M_.param_names_tex = char(M_.param_names_tex, 'ctheta');
-M_.param_names_long = char(M_.param_names_long, 'ctheta');
 M_.param_partitions = struct();
 M_.exo_det_nbr = 0;
 M_.exo_nbr = 1;
 M_.endo_nbr = 5;
-M_.param_nbr = 7;
+M_.param_nbr = 6;
 M_.orig_endo_nbr = 5;
 M_.aux_vars = [];
 M_.Sigma_e = zeros(1, 1);
@@ -115,7 +112,7 @@ oo_.steady_state = zeros(5, 1);
 M_.maximum_exo_lag = 0;
 M_.maximum_exo_lead = 0;
 oo_.exo_steady_state = zeros(1, 1);
-M_.params = NaN(7, 1);
+M_.params = NaN(6, 1);
 M_.NNZDerivatives = [16; -1; -1];
 load params;
 load xinit;
@@ -131,8 +128,7 @@ M_.params( 5 ) = params(5);
 clambda = M_.params( 5 );
 M_.params( 6 ) = params(6);
 csigma = M_.params( 6 );
-M_.params( 7 ) = params(7);
-ctheta = M_.params( 7 );
+ctheta = params(7);
 %
 % INITVAL instructions
 %
