@@ -1,8 +1,9 @@
 
 clear; clc;
-parameter_setting
-compute_steadystate
-dynare detrended_model.mod
+parameter_setting;
+compute_steadystate;
+dynare detrended_model.mod;
+policy_func;
 
 % Graphing
 % plotting relevant endogenous variables
@@ -23,8 +24,3 @@ subtitle('Impulse Response Functions');
 
 set(figure1,'PaperUnits','inches','PaperPosition',[0 0 10 6]);
 saveas(figure1,'irfs.png');
-
-
-%% Toying around
-
-% generating IRFS by hand from policy function
