@@ -3,9 +3,11 @@ clear; clc;
 parameter_setting;
 compute_steadystate;
 dynare detrended_model.mod;
-irfs_byhand;
+%irfs;
 
 %{
+policy_func;
+
 % Graphing
 % plotting relevant endogenous variables
 fields = fieldnames(oo_.irfs);

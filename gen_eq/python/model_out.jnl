@@ -1,0 +1,40 @@
+This is Dynare++, Copyright (C) 2004-2011, Ondra Kamenik
+Dynare++ comes with ABSOLUTELY NO WARRANTY and is distributed under
+GPL: modules integ, tl, kord, sylv, src, extern and documentation
+LGPL: modules parser, utils
+ for GPL  see http://www.gnu.org/licenses/gpl.html
+ for LGPL see http://www.gnu.org/licenses/lgpl.html
+
+
+System info: (not implemented for MINGW)
+Start time:  (not implemented for MINGW)
+
+  ------ elapsed time (seconds)                     
+  |       ------ record unique identifier           
+  |       |     ------ load average                 
+  |       |     |    ------ available memory (MB)   
+  |       |     |    |     ------  major faults (MB)
+  |       |     |    |     |                        
+  V       V     V    V     V                        
+
+0.08562:S00000:-1.:-0.00:      : Information on variables
+0.08562:M00001:-1.:-0.00:      :   Number of endogenous:            7
+0.08562:M00002:-1.:-0.00:      :   Number of exogenous:             2
+0.08562:M00003:-1.:-0.00:      :   Number of static:                3
+0.08562:M00004:-1.:-0.00:      :   Number of predetermined:         1
+0.08562:M00005:-1.:-0.00:      :   Number of forward looking:       3
+0.08562:M00006:-1.:-0.00:      :   Number of both:                  0
+0.08562:E00000:-1.:-0.00:000000: Information on variables
+0.08562:S00007:-1.:-0.00:      : Information on forward substitutions
+0.08562:M00008:-1.:-0.00:      :   Number of affected equations:    0
+0.08562:M00009:-1.:-0.00:      :   Number of substituted terms:     0
+0.08562:M00010:-1.:-0.00:      :   Number of auxiliary variables:   0
+0.08562:M00011:-1.:-0.00:      :   Number of new terms in the tree: 0
+0.08562:E00007:-1.:-0.00:000000: Information on forward substitutions
+0.08562:S00012:-1.:-0.00:      : Information on substitutions
+0.08562:M00013:-1.:-0.00:      :   Number of substitutions:         0
+0.08562:E00012:-1.:-0.00:000000: Information on substitutions
+0.22139:S00014:-1.:-0.00:      : Non-linear solver for deterministic steady state
+0.22239:M00015:-1.:-0.00:      :   Iter   lambda      residual
+0.22239:M00016:-1.:-0.00:      :   ---------------------------
+0.22639:E00014:-1.:-0.00:000000: Non-linear solver for deterministic steady state

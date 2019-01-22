@@ -10,6 +10,27 @@ Processing outputs ...
 done
 Preprocessing completed.
 
+STEADY-STATE RESULTS:
+
+r 		 0.158209
+g 		 0.00790874
+k 		 0.572658
+y 		 0.825441
+c 		 0.764131
+
+
+
+
+Residuals of the static equations:
+
+Equation number 1 : 2.3949e-007
+Equation number 2 : -2.0539e-007
+Equation number 3 : -2.9926e-006
+Equation number 4 : 3.1805e-006
+Equation number 5 : 0
+
+
+
 MODEL SUMMARY
 
   Number of variables:         5

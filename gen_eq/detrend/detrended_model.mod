@@ -38,6 +38,7 @@ y = A(-1)^(1 - calpha) * k(-1)^calpha;
 g = (cgamma - 1) * clambda * (csigma*clambda*(calpha - 1) * (k(-1)/A(-1))^calpha)^(csigma/(1-csigma));
 end;
 
+
 initval;
 c = xinit(1);
 y = xinit(2);
@@ -46,7 +47,9 @@ g = xinit(4);
 r = xinit(5);
 etau_k = policy(1);
 end;
+steady(solve_algo = 1);
 
+resid;
 
 // Sets shocks
 shocks;

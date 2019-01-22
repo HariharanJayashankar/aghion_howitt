@@ -1,0 +1,41 @@
+var r g l k y c w;
+
+varexo etau_k etau_l;
+
+parameters cbeta cdelta calpha cgamma clambda csigma cpsi cnu;
+
+cbeta=0.99;
+cdelta=0.1;
+calpha=0.33;
+cgamma=1.2;
+clambda=1;
+csigma=0.8;
+cpsi=6.5;
+cnu=1.5;
+
+
+model;
+// Equation 0
+0 = ((1 / c(1)) * cbeta) * (1 + r(1) * (1 - etau_k) - cdelta) - (1 + g(1)) / c;
+// Equation 1
+0 = y - (c + k - k(-1) * (1 - cdelta));
+// Equation 2
+0 = r - ((k(-1) / l) ^ (calpha - 1)) * (calpha ^ 2);
+// Equation 3
+0 = y - (l ^ (1 - calpha)) * (k(-1) ^ calpha);
+// Equation 4
+0 = g - ((cgamma - 1) * clambda) * ((((calpha - 1) * (clambda * csigma)) * ((k(-1) / l) ^ calpha)) ^ (csigma / (1 - csigma)));
+// Equation 5
+0 = 1 / c - ((cpsi * (l ^ cnu)) / w) * (1 - etau_l);
+// Equation 6
+0 = w - ((k(-1) / l) ^ calpha) * ((1 - calpha) ^ (1 - calpha));
+end;
+initval;
+l=0.4163637982607221;
+y=0.3547648325033787;
+w=0.5708768119855212;
+k=0.2563118707632364;
+r=0.150730007722917;
+g=0.00870080741400032;
+c=0.326903525201622;
+end;

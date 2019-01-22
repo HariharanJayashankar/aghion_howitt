@@ -8,8 +8,9 @@ Refer to: http://www.dynare.org/manual/index_27.html#Stochastic-solution-and-sim
 % gererating 40 observations of Steady States for all variables
 % ss values are found in oo_.steady_state, ordered according to M_.endo_names
 
-n = 100;
-state = M_.endo_names(oo_.dr.order_var,:)(M_.endo_names(oo_.dr.order_var,:) == 'k');
+n = 40;
+n_shocks = 2;
+state = find(M_.endo_names(oo_.dr.order_var,:) == 'k');
 
 y_ss = [oo_.dr.ys];
 
@@ -19,22 +20,23 @@ B = oo_.dr.ghu;
 % looping over to create series for IRF
 
 %making shock matrix; each column is a tiem period, each row is a var
-u_0 = 0; % initialize the shock vector
-u_1 = 0.8;
-u =[u_0, u_1, (zeros(1, n-2))];
+u_0 = zeros(n_shocks, 1); % initialize the shock vector
+u_1 = [0.8; 0.8];
+u =[u_0, u_1, (zeros(n_shocks, n - 2))];
+
 
 series = [];
-y_0 = y_ss(state);
-
-
 % generating IRF series
-for i = 1:n
-    y_1 = y_ss + (A * (y_0 - y_ss(state))) + (B * u(i));
-    series = [series, y_1];
-    y_0 = y_1(state);
+for i = 1:n_shocks
+  y_0 = y_ss(state);
+  for j = 1:n
+      y_1 = y_ss + (A * (y_0 - y_ss(state))) + (B(:, i) * u(i, j));
+      series = [series, y_1];
+      y_0 = y_1(state);
+  end
 end
 
-%plotting
+% setting up plot
 figure1 = figure;
 if mod(numel(y_ss),2) == 2
   a = 2;
@@ -44,13 +46,25 @@ else
   b = (numel(y_ss)+1)/2;
 end
 
+% actually plotting
+
 for i=1:numel(y_ss)
-  subplot(a, b, i); plot(series(i, :));
+  subplot(a, b, i); plot(series(i, 1:n));
   hold on;
   plot(y_ss(i) * ones(n, 1), ':');
   hold off;
   title(M_.endo_names_long(oo_.dr.order_var,:)(i));
 end
-subtitle('Impulse Response Functions (by Hand)');
-set(figure1,'PaperUnits','inches','PaperPosition',[0 0 10 6]);
-saveas(figure1,'irfs_byhand.png');
+subtitle('IRF: Shock to tau_k');
+saveas(figure1,'irf_tauk.png');
+
+
+for i=1:numel(y_ss)
+  subplot(a, b, i); plot(series(i, n+1:2*n));
+  hold on;
+  plot(y_ss(i) * ones(n, 1), ':');
+  hold off;
+  title(M_.endo_names_long(oo_.dr.order_var,:)(i));
+end
+subtitle('IRF: Shock to tau_l');
+saveas(figure1,'irf_taul.png');
