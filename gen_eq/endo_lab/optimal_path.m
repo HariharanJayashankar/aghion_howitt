@@ -4,51 +4,57 @@ the policy functions.
 Draws a lot of inspiration from "irfs.m"
 %}
 
-n = 40;
-n_shocks = 2;
-state = find(M_.endo_names(oo_.dr.order_var,:) == 'k');
-growth = find(M_.endo_names(oo_.dr.order_var,:) == 'g');
 
-y_ss = [oo_.dr.ys];
-
-%storing params in convenient objects
-A = oo_.dr.ghx;
-
-%creating SS path
-
-series = y_ss * ones(1, 40);
-%{
-% generating IRF series
-for i = 1:n_shocks
-  y_0 = y_ss(state);
-  for j = 1:n
-      y_1 = y_ss + (A * (y_0 - y_ss(state)));
-      series = [series, y_1];
-      y_0 = y_1(state);
-  end
-end
-%}
-%{
-The above loop just repeats the steady state values for 40 periods. Kinda useless
-to find the policy function just for this.
-%}
+p_r = find(M_.endo_names(oo_.dr.order_var,:) == 'r')
+p_g = find(M_.endo_names(oo_.dr.order_var,:) == 'g')
+p_l = find(M_.endo_names(oo_.dr.order_var,:) == 'l')
+p_etau_l = find(M_.endo_names(oo_.dr.order_var,:) == 'etau_l')
+p_k = find(M_.endo_names(oo_.dr.order_var,:) == 'k')
+p_y = find(M_.endo_names(oo_.dr.order_var,:) == 'y')
+p_c = find(M_.endo_names(oo_.dr.order_var,:) == 'c')
+p_w = find(M_.endo_names(oo_.dr.order_var,:) == 'w')
 
 
-%series for A
-g = series(find(M_.endo_names(oo_.dr.order_var,:) == 'g'), :);
-A_0 = 1;
-series_a =[A_0];
-for i = 1:40
-  A_1 = (1 + g(i)) * A_0;
-  series_a = [series_a, A_1];
-  A_0 = A_1;
-end
+% coeffs for policy func
 
-%transforming all variables back
-growth = find(M_.endo_names(oo_.dr.order_var,:) != 'l' & M_.endo_names(oo_.dr.order_var,:) != 'r' & M_.endo_names(oo_.dr.order_var,:) != 'g');
-series_g = series(growth);
+A = [oo_.dr.ghx(oo_.dr.inv_order_var(p_k),:)];
+B = [oo_.dr.ghu(oo_.dr.inv_order_var(p_k),:)];
 
-series_trns = [];
-for i = 1:numel(growth)
-  series_trns(i, :) = series_g(i, :) .* series_a;
+C = [oo_.dr.ghx(oo_.dr.inv_order_var(p_r),:);
+     oo_.dr.ghx(oo_.dr.inv_order_var(p_g),:);
+     oo_.dr.ghx(oo_.dr.inv_order_var(p_l),:);
+     oo_.dr.ghx(oo_.dr.inv_order_var(p_etau_l),:);
+     oo_.dr.ghx(oo_.dr.inv_order_var(p_y),:);
+     oo_.dr.ghx(oo_.dr.inv_order_var(p_c),:);
+     oo_.dr.ghx(oo_.dr.inv_order_var(p_w),:)];
+
+D = [oo_.dr.ghu(oo_.dr.inv_order_var(p_r),:);
+     oo_.dr.ghu(oo_.dr.inv_order_var(p_g),:);
+     oo_.dr.ghu(oo_.dr.inv_order_var(p_l),:);
+     oo_.dr.ghu(oo_.dr.inv_order_var(p_etau_l),:);
+     oo_.dr.ghu(oo_.dr.inv_order_var(p_y),:);
+     oo_.dr.ghu(oo_.dr.inv_order_var(p_c),:);
+     oo_.dr.ghu(oo_.dr.inv_order_var(p_w),:)];
+
+Us1 = [oo_.dr.ghxx(oo_.dr.inv_order_var(p_k),:)];
+Us2 = [oo_.dr.ghuu(oo_.dr.inv_order_var(p_k),:)];
+
+
+% Steady state
+y_ss = [oo_.dr.ys(oo_.dr.inv_order_var(p_r), :);
+        oo_.dr.ys(oo_.dr.inv_order_var(p_g), :);
+        oo_.dr.ys(oo_.dr.inv_order_var(p_l), :);
+        oo_.dr.ys(oo_.dr.inv_order_var(p_etau_l), :);
+        oo_.dr.ys(oo_.dr.inv_order_var(p_y), :);
+        oo_.dr.ys(oo_.dr.inv_order_var(p_c), :);
+        oo_.dr.ys(oo_.dr.inv_order_var(p_w), :);
+        oo_.dr.ys(oo_.dr.inv_order_var(p_k), :);];
+
+% Simulation
+
+T = 200;
+
+for i = 1:T
+
+
 end

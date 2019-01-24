@@ -1,15 +1,16 @@
 // vars
-var r g l;
+var r g l etau_l;
 trend_var(growth_factor=1+g) A;
 var(deflator=A) k y c w;
 
-varexo etau_k etau_l;
+varexo junk; //Not a real exo var. Needed for dynare to behave
 
 // parameters
-parameters cbeta cdelta calpha cgamma clambda csigma cpsi cnu;
+parameters cbeta cdelta calpha cgamma clambda csigma cpsi cnu cG_0 etau_k;
 
 load params;
 load xinit;
+load policy;
 
 // setting params
 cbeta = params(1);
@@ -21,6 +22,8 @@ csigma = params(6);
 ctheta = params(7);
 cnu = params(8);
 cpsi = params(9);
+cG_0 = params(10);
+etau_k = policy(1);
 
 // model
 model;
@@ -44,6 +47,9 @@ g = (cgamma - 1) * clambda * (csigma*clambda*(calpha - 1) * (k(-1)/l * A(-1))^ca
 
 // labour market clearing
 w = (1 - calpha)* A(-1)^(1 - calpha) * (k(-1)/l)^calpha;
+
+//Government constriant
+cG_0 = etau_k * k(-1) * r + etau_l * l * w;
 end;
 
 initval;
@@ -54,7 +60,6 @@ g = xinit(4);
 r = xinit(5);
 l = xinit(6);
 w = xinit(7);
-etau_k = policy(1);
 etau_l = policy(2);
 end;
 
@@ -64,4 +69,4 @@ resid(1);
 check;
 
 // solve
-stoch_simul(order=3, nograph);
+stoch_simul(order=3, irf = 0);

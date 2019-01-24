@@ -1,4 +1,4 @@
-function y = detrended_model_set_auxiliary_variables(y, x, params)
+function y = model_toloop_set_auxiliary_variables(y, x, params)
 %
 % Status : Computes static model for Dynare
 %

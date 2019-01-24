@@ -1,6 +1,7 @@
 Starting Dynare (version 4.5.6).
 Starting preprocessing of the model file ...
-Found 7 equation(s).
+WARNING: junk not used in model block, removed by nostrict command-line option
+Found 8 equation(s).
 Evaluating expressions...done
 Computing static model derivatives:
  - order 1
@@ -14,34 +15,36 @@ Preprocessing completed.
 
 STEADY-STATE RESULTS:
 
-r 		 0.158209
-g 		 0.00790888
-l 		 0.415738
-k 		 0.241859
-y 		 0.344957
-c 		 0.319063
-w 		 0.555929
+r      		 0.158209
+g      		 0.00790905
+l      		 0.497482
+etau_l 		 0.361578
+k      		 0.289418
+y      		 0.412784
+c      		 0.381798
+w      		 0.55593
 
 
 
 
 Residuals of the static equations:
 
-Equation number 1 : 5.1986e-007
+Equation number 1 : 0
 Equation number 2 : 0
-Equation number 3 : -1.6621e-006
-Equation number 4 : 7.311e-007
+Equation number 3 : 0
+Equation number 4 : 0
 Equation number 5 : 0
-Equation number 6 : -6.5865e-007
-Equation number 7 : 1.2538e-006
+Equation number 6 : 0
+Equation number 7 : 0
+Equation number 8 : 0
 
 
 
 EIGENVALUES:
          Modulus             Real        Imaginary
 
-          0.7647           0.7647                0
-           1.857            1.857                0
+          0.7408           0.7408                0
+           1.796            1.796                0
              Inf              Inf                0
              Inf              Inf                0
 
@@ -54,16 +57,16 @@ The rank condition is verified.
 
 MODEL SUMMARY
 
-  Number of variables:         7
-  Number of stochastic shocks: 2
+  Number of variables:         8
+  Number of stochastic shocks: 1
   Number of state variables:   1
   Number of jumpers:           3
-  Number of static variables:  3
+  Number of static variables:  4
 
 
 MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
-Variables      etau_k    etau_l
-etau_k       0.000000  0.000000
-etau_l       0.000000  0.000000
+Variables        junk
+junk         0.000000
 
 Total computing time : 0h00m01s
+Note: 1 warning(s) encountered in the preprocessor

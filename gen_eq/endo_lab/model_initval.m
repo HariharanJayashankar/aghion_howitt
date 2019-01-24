@@ -17,7 +17,7 @@ dseries('initialize');
 % Define global variables.
 global M_ options_ oo_ estim_params_ bayestopt_ dataset_ dataset_info estimation_info ys0_ ex0_
 options_ = [];
-M_.fname = 'detrended_model';
+M_.fname = 'model_initval';
 M_.dynare_version = '4.5.6';
 oo_.dynare_version = '4.5.6';
 options_.dynare_version = '4.5.6';
@@ -26,13 +26,10 @@ options_.dynare_version = '4.5.6';
 %
 global_initialization;
 diary off;
-diary('detrended_model.log');
-M_.exo_names = 'etau_k';
-M_.exo_names_tex = 'etau\_k';
-M_.exo_names_long = 'etau_k';
-M_.exo_names = char(M_.exo_names, 'etau_l');
-M_.exo_names_tex = char(M_.exo_names_tex, 'etau\_l');
-M_.exo_names_long = char(M_.exo_names_long, 'etau_l');
+diary('model_initval.log');
+M_.exo_names = 'junk';
+M_.exo_names_tex = 'junk';
+M_.exo_names_long = 'junk';
 M_.endo_names = 'r';
 M_.endo_names_tex = 'r';
 M_.endo_names_long = 'r';
@@ -42,6 +39,9 @@ M_.endo_names_long = char(M_.endo_names_long, 'g');
 M_.endo_names = char(M_.endo_names, 'l');
 M_.endo_names_tex = char(M_.endo_names_tex, 'l');
 M_.endo_names_long = char(M_.endo_names_long, 'l');
+M_.endo_names = char(M_.endo_names, 'etau_l');
+M_.endo_names_tex = char(M_.endo_names_tex, 'etau\_l');
+M_.endo_names_long = char(M_.endo_names_long, 'etau_l');
 M_.endo_names = char(M_.endo_names, 'k');
 M_.endo_names_tex = char(M_.endo_names_tex, 'k');
 M_.endo_names_long = char(M_.endo_names_long, 'k');
@@ -79,15 +79,21 @@ M_.param_names_long = char(M_.param_names_long, 'cpsi');
 M_.param_names = char(M_.param_names, 'cnu');
 M_.param_names_tex = char(M_.param_names_tex, 'cnu');
 M_.param_names_long = char(M_.param_names_long, 'cnu');
+M_.param_names = char(M_.param_names, 'cG_0');
+M_.param_names_tex = char(M_.param_names_tex, 'cG\_0');
+M_.param_names_long = char(M_.param_names_long, 'cG_0');
+M_.param_names = char(M_.param_names, 'etau_k');
+M_.param_names_tex = char(M_.param_names_tex, 'etau\_k');
+M_.param_names_long = char(M_.param_names_long, 'etau_k');
 M_.param_partitions = struct();
 M_.exo_det_nbr = 0;
-M_.exo_nbr = 2;
-M_.endo_nbr = 7;
-M_.param_nbr = 8;
-M_.orig_endo_nbr = 7;
+M_.exo_nbr = 1;
+M_.endo_nbr = 8;
+M_.param_nbr = 10;
+M_.orig_endo_nbr = 8;
 M_.aux_vars = [];
-M_.Sigma_e = zeros(2, 2);
-M_.Correlation_matrix = eye(2, 2);
+M_.Sigma_e = zeros(1, 1);
+M_.Correlation_matrix = eye(1, 1);
 M_.H = 0;
 M_.Correlation_matrix_ME = 1;
 M_.sigma_e_is_diagonal = 1;
@@ -96,21 +102,22 @@ options_.block=0;
 options_.bytecode=0;
 options_.use_dll=0;
 M_.hessian_eq_zero = 0;
-erase_compiled_function('detrended_model_static');
-erase_compiled_function('detrended_model_dynamic');
-M_.orig_eq_nbr = 7;
-M_.eq_nbr = 7;
+erase_compiled_function('model_initval_static');
+erase_compiled_function('model_initval_dynamic');
+M_.orig_eq_nbr = 8;
+M_.eq_nbr = 8;
 M_.ramsey_eq_nbr = 0;
 M_.set_auxiliary_variables = exist(['./' M_.fname '_set_auxiliary_variables.m'], 'file') == 2;
 M_.lead_lag_incidence = [
- 0 2 9;
- 0 3 10;
+ 0 2 10;
+ 0 3 11;
  0 4 0;
- 1 5 0;
- 0 6 0;
- 0 7 11;
- 0 8 0;]';
-M_.nstatic = 3;
+ 0 5 0;
+ 1 6 0;
+ 0 7 0;
+ 0 8 12;
+ 0 9 0;]';
+M_.nstatic = 4;
 M_.nfwrd   = 3;
 M_.npred   = 1;
 M_.nboth   = 0;
@@ -120,19 +127,20 @@ M_.ndynamic   = 4;
 M_.equations_tags = {
 };
 M_.static_and_dynamic_models_differ = 0;
-M_.exo_names_orig_ord = [1:2];
+M_.exo_names_orig_ord = [1:1];
 M_.maximum_lag = 1;
 M_.maximum_lead = 1;
 M_.maximum_endo_lag = 1;
 M_.maximum_endo_lead = 1;
-oo_.steady_state = zeros(7, 1);
+oo_.steady_state = zeros(8, 1);
 M_.maximum_exo_lag = 0;
 M_.maximum_exo_lead = 0;
-oo_.exo_steady_state = zeros(2, 1);
-M_.params = NaN(8, 1);
-M_.NNZDerivatives = [29; 65; 181];
+oo_.exo_steady_state = zeros(1, 1);
+M_.params = NaN(10, 1);
+M_.NNZDerivatives = [34; 72; 176];
 load params;
 load xinit;
+load policy;
 M_.params( 1 ) = params(1);
 cbeta = M_.params( 1 );
 M_.params( 2 ) = params(2);
@@ -150,19 +158,22 @@ M_.params( 8 ) = params(8);
 cnu = M_.params( 8 );
 M_.params( 7 ) = params(9);
 cpsi = M_.params( 7 );
+M_.params( 9 ) = params(10);
+cG_0 = M_.params( 9 );
+M_.params( 10 ) = policy(1);
+etau_k = M_.params( 10 );
 %
 % INITVAL instructions
 %
 options_.initval_file = 0;
-oo_.steady_state( 6 ) = xinit(1);
-oo_.steady_state( 5 ) = xinit(2);
-oo_.steady_state( 4 ) = xinit(3);
+oo_.steady_state( 7 ) = xinit(1);
+oo_.steady_state( 6 ) = xinit(2);
+oo_.steady_state( 5 ) = xinit(3);
 oo_.steady_state( 2 ) = xinit(4);
 oo_.steady_state( 1 ) = xinit(5);
 oo_.steady_state( 3 ) = xinit(6);
-oo_.steady_state( 7 ) = xinit(7);
-oo_.exo_steady_state( 1 ) = policy(1);
-oo_.exo_steady_state( 2 ) = policy(2);
+oo_.steady_state( 8 ) = xinit(7);
+oo_.steady_state( 4 ) = policy(2);
 if M_.exo_nbr > 0
 	oo_.exo_simul = ones(M_.maximum_lag,1)*oo_.exo_steady_state';
 end
@@ -173,32 +184,33 @@ steady;
 resid(1);
 oo_.dr.eigval = check(M_,options_,oo_);
 options_.k_order_solver = 1;
-options_.nograph = 1;
+options_.irf = 0;
 options_.order = 3;
 var_list_ = char();
 info = stoch_simul(var_list_);
-save('detrended_model_results.mat', 'oo_', 'M_', 'options_');
+save('model_initval_results.mat', 'oo_', 'M_', 'options_');
 if exist('estim_params_', 'var') == 1
-  save('detrended_model_results.mat', 'estim_params_', '-append');
+  save('model_initval_results.mat', 'estim_params_', '-append');
 end
 if exist('bayestopt_', 'var') == 1
-  save('detrended_model_results.mat', 'bayestopt_', '-append');
+  save('model_initval_results.mat', 'bayestopt_', '-append');
 end
 if exist('dataset_', 'var') == 1
-  save('detrended_model_results.mat', 'dataset_', '-append');
+  save('model_initval_results.mat', 'dataset_', '-append');
 end
 if exist('estimation_info', 'var') == 1
-  save('detrended_model_results.mat', 'estimation_info', '-append');
+  save('model_initval_results.mat', 'estimation_info', '-append');
 end
 if exist('dataset_info', 'var') == 1
-  save('detrended_model_results.mat', 'dataset_info', '-append');
+  save('model_initval_results.mat', 'dataset_info', '-append');
 end
 if exist('oo_recursive_', 'var') == 1
-  save('detrended_model_results.mat', 'oo_recursive_', '-append');
+  save('model_initval_results.mat', 'oo_recursive_', '-append');
 end
 
 
 disp(['Total computing time : ' dynsec2hms(toc(tic0)) ]);
+disp('Note: 1 warning(s) encountered in the preprocessor')
 if ~isempty(lastwarn)
   disp('Note: warning(s) encountered in MATLAB/Octave code')
 end

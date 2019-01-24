@@ -1,0 +1,38 @@
+Starting Dynare (version 4.5.6).
+Starting preprocessing of the model file ...
+WARNING: junk not used in model block, removed by nostrict command-line option
+Found 8 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+ - order 2
+ - order 3
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+
+
+Residuals of the static equations:
+
+Equation number 1 : -0.0034442
+Equation number 2 : -0.010512
+Equation number 3 : -0.00053516
+Equation number 4 : 0.0105
+Equation number 5 : -0.070332
+Equation number 6 : 0.00084691
+Equation number 7 : 0.040126
+Equation number 8 : 0.095637
+
+
+error: called from
+    print_info at line 83 column 13
+    steady at line 104 column 5
+    model_toloop at line 177 column 1
+    dynare at line 235 column 1
+    AA_runmodel at line 45 column 5
+error: Impossible to find the steady state. Either the model doesn't have a steady state, there are an infinity of steady states, or the guess values are too far from the solution
+>> exit

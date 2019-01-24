@@ -1,5 +1,6 @@
 function f = steadys(vars0);
     load params;
+    load policy;
 
     %parameters
     cbeta = params(1);
