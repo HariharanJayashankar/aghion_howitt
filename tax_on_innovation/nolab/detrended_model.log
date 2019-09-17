@@ -1,0 +1,113 @@
+Starting Dynare (version 4.5.6).
+Starting preprocessing of the model file ...
+Found 6 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+warning: division by zero
+warning: called from
+    trust_region>dogleg at line 202 column 3
+    trust_region at line 112 column 7
+    dynare_solve at line 185 column 16
+    evaluate_steady_state at line 223 column 19
+    steady_ at line 55 column 27
+    steady at line 81 column 30
+    detrended_model at line 152 column 1
+    dynare at line 235 column 1
+    run_all at line 27 column 1
+
+STEADY-STATE RESULTS:
+
+r      		 0.147285
+g      		 0.00910627
+etau_k 		 -0.0912503
+k      		 0.637208
+y      		 0.854035
+c      		 0.785139
+
+
+
+
+Residuals of the static equations:
+
+Equation number 1 : 8.3944e-007
+Equation number 2 : 0
+Equation number 3 : 0
+Equation number 4 : 0
+Equation number 5 : 0
+Equation number 6 : 0
+
+
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+          0.7751           0.7751                0
+               1                1                0
+           1.687            1.687                0
+             Inf             -Inf                0
+             Inf              Inf                0
+
+
+There are 3 eigenvalue(s) larger than 1 in modulus 
+for 3 forward-looking variable(s)
+
+The rank condition is verified.
+
+
+MODEL SUMMARY
+
+  Number of variables:         6
+  Number of stochastic shocks: 1
+  Number of state variables:   2
+  Number of jumpers:           3
+  Number of static variables:  1
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables    eps_tauk
+eps_tauk     0.640000
+
+POLICY AND TRANSITION FUNCTIONS
+                                   r               g          etau_k               k               y               c
+Constant                    0.147285        0.009106       -0.091250        0.637208        0.854035        0.785139
+etau_k(-1)                         0               0        1.000000       -0.158718               0        0.158718
+k(-1)                      -0.154865        0.018864               0        0.775149        0.426326        0.532431
+eps_tauk                           0               0       -1.000000        0.158718               0       -0.158718
+
+
+MOMENTS OF SIMULATED VARIABLES
+VARIABLE              MEAN       STD. DEV.        VARIANCE        SKEWNESS        KURTOSIS
+r                 0.434058        1.193539        1.424535        0.883643       -0.013905
+g                -0.025825        0.145384        0.021136       -0.883643       -0.013905
+etau_k            2.657102       11.001549      121.034080        0.850387       -0.060095
+k                -1.234394        7.709499       59.436380       -0.878632       -0.025110
+y                 0.064582        3.285683       10.795715       -0.883643       -0.013905
+c                 0.235418        2.381205        5.670138       -0.889874        0.026140
+
+
+CORRELATION OF SIMULATED VARIABLES
+VARIABLE         r       g  etau_k       k       y       c
+r           1.0000 -1.0000  0.9921 -0.9996 -1.0000 -0.9958
+g          -1.0000  1.0000 -0.9921  0.9996  1.0000  0.9958
+etau_k      0.9921 -0.9921  1.0000 -0.9953 -0.9921 -0.9763
+k          -0.9996  0.9996 -0.9953  1.0000  0.9996  0.9927
+y          -1.0000  1.0000 -0.9921  0.9996  1.0000  0.9958
+c          -0.9958  0.9958 -0.9763  0.9927  0.9958  1.0000
+
+
+AUTOCORRELATION OF SIMULATED VARIABLES
+VARIABLE         1       2       3       4       5
+r           0.9985  0.9974  0.9958  0.9938  0.9914
+g           0.9985  0.9974  0.9958  0.9938  0.9914
+etau_k      0.9962  0.9934  0.9904  0.9870  0.9835
+k           0.9985  0.9974  0.9958  0.9937  0.9913
+y           0.9985  0.9974  0.9958  0.9938  0.9914
+c           0.9964  0.9937  0.9910  0.9878  0.9845
+Total computing time : 0h00m11s
+Note: warning(s) encountered in MATLAB/Octave code
