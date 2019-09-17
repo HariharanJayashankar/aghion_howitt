@@ -3,7 +3,7 @@ clear; clc;
 parameter_setting;
 compute_steadystate;
 dynare detrended_model.mod;
-irfs_byhand;
+%irfs_byhand;
 
 %{
 % Graphing

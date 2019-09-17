@@ -47,7 +47,7 @@ g = xinit(4);
 r = xinit(5);
 etau_k = policy(1);
 end;
-steady(solve_algo = 1);
+steady;
 
 resid;
 
@@ -59,4 +59,4 @@ end;
 
 
 // solve
-stoch_simul(order=1, nograph);
+stoch_simul(order=1);

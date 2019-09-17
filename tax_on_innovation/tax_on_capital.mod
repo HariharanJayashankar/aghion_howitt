@@ -1,9 +1,10 @@
 // vars
-var r g l etau_l;
+var r g l etau_k;
 trend_var(growth_factor=1+g) A;
 var(deflator=A) k y c w;
 
-varexo junk; //Not a real exo var. Needed for dynare to behave
+// exo var
+varexo eps_tau;
 
 // parameters
 parameters cbeta cdelta calpha cgamma clambda csigma cpsi cnu cG_0 etau_k;
@@ -23,7 +24,7 @@ ctheta = params(7);
 cnu = params(8);
 cpsi = params(9);
 cG_0 = params(10);
-etau_k = policy(1);
+etau_l = params(11);
 
 // model
 model;
@@ -50,6 +51,9 @@ w = (1 - calpha)* A(-1)^(1 - calpha) * (k(-1)/l)^calpha;
 
 //Government constriant
 cG_0 = etau_k * k(-1) * r + etau_l * l * w;
+
+// capital tax shock
+etau_k = 0.99 * etau_k(-1) + eps_tau;
 end;
 
 initval;
@@ -60,7 +64,7 @@ g = xinit(4);
 r = xinit(5);
 l = xinit(6);
 w = xinit(7);
-etau_l = policy(2);
+etau_k = xinit(8);
 end;
 
 // Some checks
@@ -69,4 +73,4 @@ resid(1);
 check;
 
 // solve
-stoch_simul(order=1, irf = 0);
+stoch_simul(order=1, periods = 100);

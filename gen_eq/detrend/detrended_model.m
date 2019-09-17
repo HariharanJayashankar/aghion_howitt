@@ -153,7 +153,6 @@ resid;
 %
 M_.exo_det_length = 0;
 M_.Sigma_e(1, 1) = (0.8)^2;
-options_.nograph = 1;
 options_.order = 1;
 var_list_ = char();
 info = stoch_simul(var_list_);
